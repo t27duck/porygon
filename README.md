@@ -8,7 +8,7 @@ Based heavily off of http://dzone.com/snippets/simple-irc-bot-written-ruby
 
 ### What does it do?
 
-* Pokedex information (%dexter 25, %dexter Pikachu) from a database
+* Pokedex information (%dexter 25, %dexter Pikachu) from a PostgreSQL database (obviously any RDMS would do)
 * Twitter tweet output (Parses a URL of a tweet)
 * Logging of the room
 * GoNintendo.com story output (Parses the URL of a story and outputs the story title)
@@ -18,6 +18,7 @@ Based heavily off of http://dzone.com/snippets/simple-irc-bot-written-ruby
 ### Bootstrapping
 
 * Copy and edit config.yml.example to config.yml
-* Run bundle
+* Set up a database named 'porygon' (The db needs to at least be there for the bot to run)
+* Run ````bundle install````
 * Run ````bundle exec ruby main.rb````
 * Tested on Ruby 1.9.3 and 2.0

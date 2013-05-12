@@ -1,0 +1,16 @@
+irc:
+  host: 'irc.irchighway.net'
+  port: '6667'
+  nick: 'Porygon'
+  room: '#gonintendo'
+  nickserv_password: '*****************'
+
+database:
+  connection_string: 'postgres://someuser@localhost/porygon'
+
+twitter:
+  oauth_token: '****'
+  oauth_token_secret: '****'
+  consumer_key: '****'
+  consumer_secret: '****'
+

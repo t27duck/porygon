@@ -27,7 +27,7 @@ class Twitter
     res = access_token.request(:get, "http://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=#{screen_name}&count=1")
     return nil unless res.code == "200"
     body = Array(JSON.parse(res.body)).first
-    "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) \"#{body["text"]}\""
+    "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) - #{body["text"]}"
   rescue
     nil
   end
@@ -37,7 +37,7 @@ class Twitter
     res = access_token.request(:get, "https://api.twitter.com/1.1/statuses/show/#{tweet_id}.json")
     return nil unless res.code == "200"
     body = JSON.parse(res.body)
-    "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) \"#{body["text"]}\""
+    "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) - #{body["text"]}"
   rescue
     nil
   end

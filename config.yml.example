@@ -4,6 +4,8 @@ irc:
   channels: ["#channel1", "#channel2"]
   nickserv_password: ""
 
+porygon_key: ""
+
 #twitter:
 #  oauth_token: ""
 #  oauth_token_secret: ""

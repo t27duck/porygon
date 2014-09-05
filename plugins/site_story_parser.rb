@@ -2,7 +2,7 @@ require "json"
 require "net/http"
 require "cgi"
 
-class TopStories
+class SiteStoryParser
   include Cinch::Plugin
 
   def initialize(*args)

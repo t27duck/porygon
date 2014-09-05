@@ -10,6 +10,26 @@ class TopStories
     @last_top_story_url ||= {}
   end
 
+  match /http:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_goingsony_story"
+  match /http:\/\/w{0,3}\.?gonintendo\.com\/s\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
+  match /http:\/\/w{0,3}\.?gonintendo\.com\/\?mode=viewstory&id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
+  timer (10 * 60), :method => :check_sites
+
+  def get_gonintendo_story(m, story_id)
+    story_id = story_id.to_i
+    body = make_request("http://www.gonintendo.com/feeds/porygon_story_json.php?id=#{story_id}")
+    return if body.nil?
+    rating = body['thumbs_up'].to_i - body['thumbs_down'].to_i
+    m.reply "#{body["title"]} (Posted on #{body["published"]}) Rating: #{rating} [+#{body["thumbs_up"].to_i} -#{body["thumbs_down"].to_i}]"
+  end
+
+  def get_goingsony_story(m, story_id)
+    story_id = story_id.to_i
+    body = make_request("http://goingsony.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
+    return if body.nil?
+    m.reply "#{body["title"]} (Posted on #{body["published"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
+  end
+
   def check_sites
     [
       {:url => "http://www.gonintendo.com/content/json/chrome-1.json", :channel => "#gonintendo"},
@@ -19,12 +39,10 @@ class TopStories
     end
   end
 
-  timer (10 * 60), :method => :check_sites
-
   private ######################################################################
 
   def check_site(site)
-    body = fetch_json(site[:url])
+    body = make_request(site[:url])
     return if body.nil?
 
     messages = build_messages(site[:channel], body)
@@ -62,7 +80,7 @@ class TopStories
     end
   end
 
-  def fetch_json(url)
+  def make_request(url)
     url = URI.parse(url)
     req = Net::HTTP::Get.new(url.request_uri)
     res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }

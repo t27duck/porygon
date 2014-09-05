@@ -27,7 +27,7 @@ class SiteStoryParser
     story_id = story_id.to_i
     body = make_request("http://goingsony.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
     return if body.nil?
-    m.reply "#{body["title"]} (Posted on #{body["published"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
+    m.reply "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
   end
 
   def check_sites

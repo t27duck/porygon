@@ -76,7 +76,7 @@ class SiteStoryParser
 
   def send_messages(channel, messages)
     messages.each do |message|
-      Channel("#gonintendo").send message
+      Channel(channel).send message
     end
   end
 

@@ -9,6 +9,7 @@ class Sayings
       /^porygon.{0,2}what is The Answer to the Ultimate Question of Life, the Universe, and Everything\?$/i => "42",
       /^i want to rock and roll all night$/i => "and party every day",
       /^(videogames|video games|vidyagames|vidya games)$/i => "Serious business.",
+      /FOOTBALL/ => "https://www.youtube.com/watch?v=kwqSCMoZVqw",
       /^(hi|hello|sup|what's up|hiya|hey|wb|welcome back|it's|right|how you doin|ok|<3).*porygon.*$/i => "Porygon! ^_^"
     }
   end

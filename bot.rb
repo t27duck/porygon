@@ -6,7 +6,7 @@ CONFIG = YAML::load_file(ENV["PORYGON_CONFIG"] || "./config.yml")
 
 Dir.glob('./{plugins}/*.rb').each { |file| require file }
 
-plugin_list = [Sayings, Twitter, Dexter, ChatLog, SiteStoryParser]
+plugin_list = [Sayings, Twitter, Dexter, ChatLog, SiteStoryParser, Autovoice]
 plugin_list << Cinch::Plugins::Identify if CONFIG["irc"]["nickserv_password"]
 
 bot = Cinch::Bot.new do

@@ -8,7 +8,8 @@ class Sayings
       /^porygon.{0,2}what are the rules\?$/i => "[1] A robot may not injure a human being or, through inaction, allow a human being to come to harm. [2] A robot must obey any orders given to it by human beings, except where such orders would conflict with the First Law. [3] A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.",
       /^porygon.{0,2}what is The Answer to the Ultimate Question of Life, the Universe, and Everything\?$/i => "42",
       /^i want to rock and roll all night$/i => "and party every day",
-      /^video.*game$/i => "Serious business.",
+      /^video.*games?$/i => "Serious business.",
+      /^guys$/i => "... and dolls... We're just a bunch of crazy guys and dolls...",
       /^(hi|hello|sup|what's up|hiya|hey|wb|welcome back|it's|right|how you doin|ok|<3).*porygon.*$/i => "Porygon! ^_^"
     }
   end

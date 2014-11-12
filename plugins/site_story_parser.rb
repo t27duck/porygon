@@ -13,22 +13,26 @@ class SiteStoryParser
   match /http:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_goingsony_story"
   match /http:\/\/w{0,3}\.?gonintendo\.com\/s\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
   match /http:\/\/w{0,3}\.?gonintendo\.com\/\?mode=viewstory&id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
-  match /http:\/\/w{0,3}\.?gonintendo\.com\/m\/\?id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
+  match /http:\/\/w{0,3}\.?gonintendo\.com\/m\/\?id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story_mobile"
   timer (10 * 60), :method => :check_sites
 
   def get_gonintendo_story(m, story_id)
-    story_id = story_id.to_i
-    body = make_request("http://www.gonintendo.com/feeds/porygon_story_json.php?id=#{story_id}")
+    body = check_gonintendo(story_id.to_i)
     return if body.nil?
-    rating = body['thumbs_up'].to_i - body['thumbs_down'].to_i
-    m.reply "#{body["title"]} (Posted on #{body["published"]}) Rating: #{rating} [+#{body["thumbs_up"].to_i} -#{body["thumbs_down"].to_i}]"
+    send_reply m, body
+  end
+
+  def get_gonintendo_story_mobile(m, story_id)
+    body = check_gonintendo(story_id.to_i)
+    return if body.nil?
+    send_reply m, "#{body} http://gonintendo.com/s/#{story_id}"
   end
 
   def get_goingsony_story(m, story_id)
     story_id = story_id.to_i
     body = make_request("http://goingsony.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
     return if body.nil?
-    m.reply "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
+    send_reply m, "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
   end
 
   def check_sites
@@ -41,6 +45,17 @@ class SiteStoryParser
   end
 
   private ######################################################################
+
+  def check_gonintendo(story_id)
+    body = make_request("http://www.gonintendo.com/feeds/porygon_story_json.php?id=#{story_id}")
+    return nil if body.nil?
+    rating = body['thumbs_up'].to_i - body['thumbs_down'].to_i
+    "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
+  end
+
+  def send_reply(m, reply)
+    m.reply reply
+  end
 
   def check_site(site)
     body = make_request(site[:url])

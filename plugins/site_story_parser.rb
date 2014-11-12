@@ -50,7 +50,7 @@ class SiteStoryParser
     body = make_request("http://www.gonintendo.com/feeds/porygon_story_json.php?id=#{story_id}")
     return nil if body.nil?
     rating = body['thumbs_up'].to_i - body['thumbs_down'].to_i
-    "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
+    "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{rating} [+#{body["thumbs_up"].to_i} -#{body["thumbs_down"].to_i}]"
   end
 
   def send_reply(m, reply)

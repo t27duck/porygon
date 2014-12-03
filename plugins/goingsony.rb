@@ -65,7 +65,7 @@ class GoingSony
   end
 
   def set_last_story_urls(stories, channel)
-    @last_story_urls[site[:channel]] = []
+    @last_story_urls[channel] = []
     stories.each do |story|
       @last_story_urls[channel] << story['url']
     end

@@ -2,7 +2,7 @@ require "json"
 require "net/http"
 require "cgi"
 
-class SiteStoryParser
+class GoNintendo
   include Cinch::Plugin
 
   def initialize(*args)
@@ -10,7 +10,6 @@ class SiteStoryParser
     @last_top_story_url ||= {}
   end
 
-  match /http:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_goingsony_story"
   match /http:\/\/w{0,3}\.?gonintendo\.com\/s\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
   match /http:\/\/w{0,3}\.?gonintendo\.com\/\?mode=viewstory&id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
   match /http:\/\/w{0,3}\.?gonintendo\.com\/m\/\?id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story_mobile"
@@ -28,17 +27,9 @@ class SiteStoryParser
     send_reply m, "#{body} http://gonintendo.com/s/#{story_id}"
   end
 
-  def get_goingsony_story(m, story_id)
-    story_id = story_id.to_i
-    body = make_request("http://goingsony.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
-    return if body.nil?
-    send_reply m, "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
-  end
-
   def check_sites
     [
       {:url => "http://www.gonintendo.com/content/json/chrome-1.json", :channel => "#gonintendo"},
-      {:url => "http://goingsony.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}", :channel => "#goingsony"}
     ].each do |site|
       check_site(site)
     end

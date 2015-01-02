@@ -20,7 +20,7 @@ class GoingSony
 
   def check_sites
     [
-      {:url => "http://goingsony.com/porygon/stories.json?key=#{CONFIG["porygon_key"]}", :channel => "#goingsony", :first_story_only => false}
+      {:url => "http://goingsony.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}", :channel => "#goingsony", :first_story_only => false}
     ].each do |site|
       check_site(site)
     end
@@ -55,8 +55,7 @@ class GoingSony
     stories.each_with_index do |story, i|
       if !@last_story_urls[site[:channel]].include?(story['url'])
         break if site[:first_story_only] && i > 0
-        heading = site[:first_story_only] ? "New Top Story" : "New Story"
-        messages << "#{heading}: #{story['title']} - #{story['url']}"
+        messages << "New Top Story: #{story['title']} - #{story['url']}"
       end
     end
 

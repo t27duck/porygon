@@ -10,7 +10,7 @@ class Sayings
       /^i want to rock and roll all night$/i => "and party every day",
       /^video.*games.?$/i => "Serious business.",
       /^guys!?$/i => "... and dolls... We're just a bunch of crazy guys and dolls...",
-      /^(hi|hello|sup|what's up|hiya|hey|wb|welcome back|it's|right|how you doin|ok|<3).*porygon.*$/i => "Porygon! ^_^"
+      /^(hi|hello|sup|what's up|hiya|hey|wb|welcome back|it's|right|how you doin|ok|<3).*porygon.*$/i => "Porygon! ^_^",
       /^rolling around at the speed of sound$/i => "Got places to go, gotta follow my rainbow",
       /^moan$/i => "GROAN"
     }

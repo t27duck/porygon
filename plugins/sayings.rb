@@ -13,7 +13,7 @@ class Sayings
       /^(hi|hello|sup|what's up|hiya|hey|wb|welcome back|it's|right|how you doin|ok|<3).*porygon.*$/i => "Porygon! ^_^",
       /^rolling around at the speed of sound$/i => "Got places to go, gotta follow my rainbow",
       /^moan$/i => "GROAN"
-      /^enter key$/i => "Shut Up"
+      /^enter.*key$/i => "Shut Up"
     }
   end
 

@@ -1,5 +1,6 @@
 require "json"
 require "oauth"
+require "htmlentities"
 
 class Twitter
   include Cinch::Plugin
@@ -11,7 +12,8 @@ class Twitter
     res = access_token.request(:get, "https://api.twitter.com/1.1/statuses/show/#{status_id}.json")
     return unless res.code == "200"
     body = JSON.parse(res.body)
-    m.reply "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) - #{body["text"]}"
+    tweet_body = HTMLEntities.new.decode(body["text"])
+    m.reply "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) - #{tweet_body}"
   rescue
   end
 

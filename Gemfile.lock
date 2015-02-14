@@ -57,6 +57,7 @@ GEM
     do_sqlite3 (0.10.14)
       data_objects (= 0.10.14)
     fastercsv (1.5.5)
+    htmlentities (4.3.3)
     json (1.8.1)
     json_pure (1.8.1)
     multi_json (1.10.1)
@@ -72,5 +73,6 @@ DEPENDENCIES
   cinch-identify (~> 1.6.0)
   data_mapper (~> 1.2.0)
   dm-sqlite-adapter (~> 1.2.0)
+  htmlentities
   json
   oauth (~> 0.4.7)

@@ -13,7 +13,9 @@ class Sayings
       /^(hi|hello|sup|what's up|hiya|hey|wb|welcome back|it's|right|how you doin|ok|<3).*porygon.*$/i => "Porygon! ^_^",
       /^rolling around at the speed of sound$/i => "Got places to go, gotta follow my rainbow",
       /^moan$/i => "GROAN",
-      /^enter.*key$/i => "Shut Up"
+      /^enter.*key$/i => "Shut Up",
+      /^*this is my united states$/i => "of whatever!",
+      /^and in the end$/i => "The love you take, is equal to the love you give"
     }
   end
 

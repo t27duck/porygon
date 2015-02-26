@@ -20,7 +20,8 @@ class Sayings
   def self.messages_with_prefix
     {
       /(song|chatroomsong|sing)$/i => "Let's gather 'round the chatroom and sing our chatroom song. Our C-H-A-T-R-O-O-M S-O-N-G song. And if you don't think that we can sing it faster then you're wrong. But it'll help if you just sing along...",
-      /legend$/i => "Disturb not the harmony of Fire, Ice, or Lightning lest these three Titans wreck destruction upon the world in which they clash. Though the water's Great Guardian shall arise to quell the fighting alone its song will fail. Thus the Earth shall turn to ash. O, Chosen One, into thine hands bring together all three. Their treasures combined tame the beast of the sea."
+      /legend$/i => "Disturb not the harmony of Fire, Ice, or Lightning lest these three Titans wreck destruction upon the world in which they clash. Though the water's Great Guardian shall arise to quell the fighting alone its song will fail. Thus the Earth shall turn to ash. O, Chosen One, into thine hands bring together all three. Their treasures combined tame the beast of the sea.",
+      /(story|uglybarnacle)$/i=> "It's called the Ugly Barnacle. Once there was an ugly barnacle. He was so ugly that everyone died! The end."
     }
   end
 

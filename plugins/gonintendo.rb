@@ -13,7 +13,7 @@ class GoNintendo
   match /http:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
   timer (10 * 60), :method => :check_sites
 
-  def get_gnintendo_story(m, story_id)
+  def get_gonintendo_story(m, story_id)
     story_id = story_id.to_i
     get_story(m, "http://gonintendo.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
   end

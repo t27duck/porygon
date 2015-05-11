@@ -7,29 +7,20 @@ class GoNintendo
 
   def initialize(*args)
     super
-    @last_top_story_url ||= {}
+    @last_story_urls ||= {}
   end
 
-  match /http:\/\/w{0,3}\.?gonintendo\.com\/s\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
-  match /http:\/\/w{0,3}\.?gonintendo\.com\/\?mode=viewstory&id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
-  match /http:\/\/w{0,3}\.?gonintendo\.com\/m\/\?id=([0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story_mobile"
+  match /http:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
   timer (10 * 60), :method => :check_sites
 
-  def get_gonintendo_story(m, story_id)
-    body = check_gonintendo(story_id.to_i)
-    return if body.nil?
-    send_reply m, body
-  end
-
-  def get_gonintendo_story_mobile(m, story_id)
-    body = check_gonintendo(story_id.to_i)
-    return if body.nil?
-    send_reply m, "#{body} http://gonintendo.com/s/#{story_id}"
+  def get_gnintendo_story(m, story_id)
+    story_id = story_id.to_i
+    get_story(m, "http://gonintendo.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
   end
 
   def check_sites
     [
-      {:url => "http://www.gonintendo.com/content/json/chrome-1.json", :channel => "#gonintendo"},
+      {:url => "http://gonintendo.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}", :channel => "#gonintendo", :first_story_only => false}
     ].each do |site|
       check_site(site)
     end
@@ -37,53 +28,45 @@ class GoNintendo
 
   private ######################################################################
 
-  def check_gonintendo(story_id)
-    body = make_request("http://www.gonintendo.com/feeds/porygon_story_json.php?id=#{story_id}")
-    return nil if body.nil?
-    rating = body['thumbs_up'].to_i - body['thumbs_down'].to_i
-    "#{body["title"]} (Posted on #{body["published"]}) Rating: #{rating} [+#{body["thumbs_up"].to_i} -#{body["thumbs_down"].to_i}]"
-  end
-
-  def send_reply(m, reply)
-    m.reply reply
+  def get_story(message, url)
+    body = make_request(url)
+    return if body.nil?
+    message.reply "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
   end
 
   def check_site(site)
     body = make_request(site[:url])
     return if body.nil?
+    messages = build_messages(site, body['stories'])
 
-    messages = build_messages(site[:channel], body)
-    return if messages.empty?
-
-    send_messages(site[:channel], messages)
+    messages.each do |message|
+      Channel(site[:channel]).send message
+    end
   end
 
-  def build_messages(channel, body)
+  def build_messages(site, stories)
     messages = []
 
-    first_top_story_url = body['top_stories'].first['url']
-    if @last_top_story_url[channel].nil?
-      @last_top_story_url[channel] = first_top_story_url
+    if @last_story_urls[site[:channel]].nil?
+      set_last_story_urls(stories, site[:channel])
       return []
     end
 
-    if @last_top_story_url[channel] != first_top_story_url
-      old_top_story_url = @last_top_story_url[channel]
-      @last_top_story_url[channel] = first_top_story_url
-      body['top_stories'].each do |ts|
-        if ts['url'] != old_top_story_url
-          messages << "New Top Story: #{ts['title']} - #{ts['url']}"
-        else
-          break
-        end
+    stories.each_with_index do |story, i|
+      if !@last_story_urls[site[:channel]].include?(story['url'])
+        break if site[:first_story_only] && i > 0
+        messages << "New Top Story: #{story['title']} - #{story['url']}"
       end
     end
+
+    set_last_story_urls(stories, site[:channel])
     messages
   end
 
-  def send_messages(channel, messages)
-    messages.each do |message|
-      Channel(channel).send message
+  def set_last_story_urls(stories, channel)
+    @last_story_urls[channel] = []
+    stories.each do |story|
+      @last_story_urls[channel] << story['url']
     end
   end
 

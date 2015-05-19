@@ -12,7 +12,7 @@ class Twitter
     res = access_token.request(:get, "https://api.twitter.com/1.1/statuses/show/#{status_id}.json")
     return unless res.code == "200"
     body = JSON.parse(res.body)
-    tweet_body = HTMLEntities.new.decode(body["text"])
+    tweet_body = HTMLEntities.new.decode(body["text"]).split("\n").join(' ')
     m.reply "#{body["user"]["name"]} (@#{body["user"]["screen_name"]}) - #{tweet_body}"
   rescue
   end

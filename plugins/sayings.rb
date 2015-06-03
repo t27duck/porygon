@@ -43,4 +43,19 @@ class Sayings
     return unless m.user.nick.downcase.include?("cdarr")
     m.reply "lolcdarr <3"
   end
+  def twistedn.messages_with_prefix
+   {
+     /(mal|MAL|myanimelist|anime)$/i => "http://myanimelist.net/profile/TwistedN"
+   }
+  end
+ def twistedn_.messages_with_prefix
+   {
+     /(mal|MAL|myanimelist|anime)$/i => "http://myanimelist.net/profile/TwistedN"
+   }
+  end
+ def Metasov.messages_with_prefix
+   {
+     /(mal|MAL|myanimelist|anime)$/i => "http://myanimelist.net/profile/MetaSov"
+   }
+  end
 end

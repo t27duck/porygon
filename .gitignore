@@ -1,5 +1,6 @@
 chatlogs/*
-config.yml
+config/database.yml
+config/config.yml
 .DS_Store
 *.swap
 .ruby-version

@@ -11,9 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 1001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pokemons", force: :cascade do |t|
+    t.string   "name",                      null: false
+    t.integer  "national_dex",              null: false
+    t.string   "types",        default: [], null: false, array: true
+    t.string   "species",                   null: false
+    t.text     "descriptions", default: [], null: false, array: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "pokemons", ["national_dex"], name: "index_pokemons_on_national_dex", unique: true, using: :btree
 
 end

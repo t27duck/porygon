@@ -20,4 +20,15 @@ task :environment do
   ActiveRecord::Base.establish_connection YAML.load(File.read(File.join(root, 'config/database.yml')))
 end
 
+desc 'Loads Pokemon data from db/pokemon_seed.yml'
+task pokemonseed: :environment do
+  Pokemon.transaction do
+    YAML.load(File.read('db/pokemon_seed.yml')).each do |national_id, data|
+      pokemon = Pokemon.find_or_initialize_by(national_dex: national_id.to_i)
+      pokemon.attributes = data
+      pokemon.save!
+    end
+  end
+end
+
 load 'active_record/railties/databases.rake'

@@ -30,7 +30,7 @@ class Sayings
       return if m.user.nick.downcase == m.bot.nick.downcase
       m.reply saying
     end
-    match reg, :use_prefix => use_prefix, :strip_colors => true, :method => name
+    match reg, use_prefix: use_prefix, strip_colors: true, method: name
   end
 
   messages.each_with_index do |(reg, saying), index|
@@ -39,12 +39,5 @@ class Sayings
 
   messages_with_prefix.each_with_index do |(reg, saying), index|
     make_method("saying_with_prefix_#{index}", reg, saying, true)
-  end
-
-  match /lol/i, :use_prefix => false, :strip_colors => true, :method => :cdarr
-
-  def cdarr(m)
-    return unless m.user.nick.downcase.include?("cdarr")
-    m.reply "lolcdarr <3"
   end
 end

@@ -5,7 +5,7 @@ require "yaml"
 require 'active_record'
 ActiveRecord::Base.establish_connection YAML::load_file('./config/database.yml')
 
-CONFIG = YAML::load_file(ENV["PORYGON_CONFIG"] || "./config.yml")
+CONFIG = YAML::load_file(ENV["PORYGON_CONFIG"] || "./config/config.yml")
 
 Dir.glob('./{plugins}/*.rb').each { |file| require file }
 Dir.glob('./{models}/*.rb').each { |file| require file }

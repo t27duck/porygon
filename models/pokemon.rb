@@ -1,4 +1,6 @@
 class Pokemon < ActiveRecord::Base
+  validates :name, :national_dex, :species, presence: true
+
   def self.lookup(term)
     find_by(national_dex: term.to_i) || find_by(name: term.downcase)
   end

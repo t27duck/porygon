@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1001) do
+ActiveRecord::Schema.define(version: 1002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,5 +27,20 @@ ActiveRecord::Schema.define(version: 1001) do
   end
 
   add_index "pokemons", ["national_dex"], name: "index_pokemons_on_national_dex", unique: true, using: :btree
+
+  create_table "raw_chat_logs", force: :cascade do |t|
+    t.string   "channel",                    null: false
+    t.integer  "event",                      null: false
+    t.string   "nick",                       null: false
+    t.string   "host",                       null: false
+    t.text     "message",                    null: false
+    t.boolean  "parsed",     default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "raw_chat_logs", ["channel"], name: "index_raw_chat_logs_on_channel", using: :btree
+  add_index "raw_chat_logs", ["created_at"], name: "index_raw_chat_logs_on_created_at", using: :btree
+  add_index "raw_chat_logs", ["event"], name: "index_raw_chat_logs_on_event", using: :btree
 
 end

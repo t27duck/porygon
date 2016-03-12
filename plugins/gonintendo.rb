@@ -10,8 +10,11 @@ class GoNintendo
     @last_story_urls ||= {}
   end
 
-  match /http:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i, :use_prefix => false, :strip_colors => true, :method => "get_gonintendo_story"
-  timer (10 * 60), :method => :check_sites
+  match /http:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i,
+    use_prefix: false,
+    strip_colors: true,
+    method: :get_gonintendo_story
+  timer (10 * 60), method: :check_sites
 
   def get_gonintendo_story(m, story_id)
     story_id = story_id.to_i
@@ -20,7 +23,11 @@ class GoNintendo
 
   def check_sites
     [
-      {:url => "http://gonintendo.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}", :channel => "#gonintendo", :first_story_only => false}
+      {
+        url: "http://gonintendo.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}",
+        channel: '#gonintendo',
+        first_story_only: false
+      }
     ].each do |site|
       check_site(site)
     end
@@ -31,7 +38,11 @@ class GoNintendo
   def get_story(message, url)
     body = make_request(url)
     return if body.nil?
-    message.reply "#{body["title"]} (Posted on #{body["published_at"]}) Rating: #{body["rating"]} [+#{body["positive"].to_i} -#{body["negative"].to_i}]"
+    reply = "#{body["title"]}"
+    reply << " (Posted on #{body["published_at"]})"
+    reply << " Rating: #{body["rating"]}"
+    reply << " [+#{body["positive"].to_i} -#{body["negative"].to_i.abs}]"
+    message.reply reply
   end
 
   def check_site(site)
@@ -74,7 +85,7 @@ class GoNintendo
     url = URI.parse(url)
     req = Net::HTTP::Get.new(url.request_uri)
     res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
-    return nil unless res.code == "200"
+    return nil unless res.code == '200'
     JSON.parse(res.body)
   rescue
     nil

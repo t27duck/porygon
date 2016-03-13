@@ -1,4 +1,3 @@
-chatlogs/*
 config/database.yml
 config/config.yml
 .DS_Store

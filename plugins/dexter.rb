@@ -5,7 +5,6 @@ class Dexter
   match /pokedex ([\w \.-]+)/i, strip_colors: true
 
   def execute(m, poke_id)
-    puts "ID IS #{poke_id}"
     pokemon = Pokemon.lookup(poke_id.strip)
     if pokemon
       m.reply pokemon.response

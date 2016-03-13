@@ -6,7 +6,9 @@ class Pokemon < ActiveRecord::Base
   end
 
   def name
-    self[:name][0,1].capitalize + self[:name][1,self[:name].length-1]
+    self[:name].split(' ').map do |part|
+      part[0,1].capitalize + part[1,part.length-1]
+    end.join(' ')
   end
 
   def response

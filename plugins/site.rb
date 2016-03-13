@@ -2,7 +2,7 @@ require "json"
 require "net/http"
 require "cgi"
 
-class GoNintendo
+class Site
   include Cinch::Plugin
 
   def initialize(*args)
@@ -14,11 +14,20 @@ class GoNintendo
     use_prefix: false,
     strip_colors: true,
     method: :get_gonintendo_story
+
+  match /http:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i,
+    use_prefix: false,
+    strip_colors: true,
+    method: :get_goingsony_story
+
   timer (10 * 60), method: :check_sites
 
   def get_gonintendo_story(m, story_id)
-    story_id = story_id.to_i
-    get_story(m, "http://gonintendo.com/porygon/story.json?id=#{story_id}&key=#{CONFIG["porygon_key"]}")
+    get_story(m, "http://gonintendo.com/porygon/story.json?id=#{story_id.to_i}&key=#{CONFIG["porygon_key"]}")
+  end
+
+  def get_goingsony_story(m, story_id)
+    get_story(m, "http://goingsony.com/porygon/story.json?id=#{story_id.to_i}&key=#{CONFIG["porygon_key"]}")
   end
 
   def check_sites
@@ -26,6 +35,11 @@ class GoNintendo
       {
         url: "http://gonintendo.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}",
         channel: '#gonintendo',
+        first_story_only: false
+      },
+      {
+        url: "http://goingsony.com/porygon/top_stories.json?key=#{CONFIG["porygon_key"]}",
+        channel: '#goingsony',
         first_story_only: false
       }
     ].each do |site|

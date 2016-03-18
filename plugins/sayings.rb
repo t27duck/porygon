@@ -14,6 +14,7 @@ class Sayings
       /^rolling around at the speed of sound$/i => "Got places to go, gotta follow my rainbow",
       /^moan$/i => "GROAN",
       /^enter.*key$/i => "Shut Up"
+      /^hey /i => "And I say hey! What a wonderful kind of day! If we could learn to work and play, and get along with each other."
     }
   end
 

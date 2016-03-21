@@ -14,20 +14,29 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.3)
     builder (3.2.2)
     cinch (2.3.1)
     cinch-identify (1.7.0)
       cinch (~> 2.0)
     htmlentities (4.3.3)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.1)
     minitest (5.8.4)
+    multi_xml (0.5.5)
     oauth (0.4.7)
     pg (0.18.4)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    wunderground (1.2.0)
+      addressable
+      httparty (> 0.6.0)
+      json (> 1.4.0)
 
 PLATFORMS
   ruby
@@ -40,6 +49,7 @@ DEPENDENCIES
   json
   oauth (~> 0.4.7)
   pg
+  wunderground
 
 BUNDLED WITH
    1.11.2

@@ -1,6 +1,4 @@
-require "json"
-require "cgi"
-require "net/http"
+require 'wunderground'
 
 class Weather
   include Cinch::Plugin
@@ -10,7 +8,7 @@ class Weather
     @cached_responses ||= {}
   end
 
-  match /weather (\w+)/i, strip_colors: true
+  match /weather ([\w, ]+)/i, strip_colors: true
 
   def execute(m, search_term)
     return unless CONFIG["weather"]
@@ -26,14 +24,8 @@ class Weather
   private ######################################################################
 
   def make_request
-    search_key = @term.size == 5 ? 'zip' : 'q'
-    url = URI.parse("http://api.openweathermap.org/data/2.5/weather?units=imperial&APPID=#{CONFIG["weather"]["api_key"]}&#{search_key}=#{CGI.escape(@term)}")
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
-    }
-    return unless res.code == '200'
-    JSON.parse(res.body)
+    terms = @term.split(',').map(&:strip).reverse
+    api_wrapper.conditions_for(*terms)
   end
 
   def lookup_cache
@@ -45,10 +37,24 @@ class Weather
   end
 
   def store_cache(body)
+    if body['response']['error'] && body['response']['error']['description']
+      body = body['response']['error']['description']
+    else
+      ob = body['current_observation']
+      body = "Currently in #{ob['display_location']['full']} "
+      body << " #{ob['weather']}, #{ob['temperature_string']}, "
+      body << "Humidity: #{ob['relative_humidity']}, "
+      body << "Wind: #{ob['wind_string']}. "
+      body << "Powered by Weather Underground."
+    end
     @cached_responses[@term] = {
-      body: "Currently in #{body['name']} - #{body['weather'].first['description']}, #{body['main']['temp']}F, Humidity #{body['main']['humidity']}%. Powered by openweathermap.org",
+      body: body,
       last_request: Time.now
     }
     @cached_responses[@term][:body]
+  end
+
+  def api_wrapper
+    @api_wrapper ||= Wunderground.new(CONFIG["weather"]["api_key"])
   end
 end

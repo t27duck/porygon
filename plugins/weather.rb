@@ -41,7 +41,7 @@ class Weather
       body = body['response']['error']['description']
     else
       ob = body['current_observation']
-      body = "Currently in #{ob['display_location']['full']} "
+      body = "Currently in #{ob['display_location']['full']}: "
       body << " #{ob['weather']}, #{ob['temperature_string']}, "
       body << "Humidity: #{ob['relative_humidity']}, "
       body << "Wind: #{ob['wind_string']}. "

@@ -40,4 +40,13 @@ class Sayings
   messages_with_prefix.each_with_index do |(reg, saying), index|
     make_method("saying_with_prefix_#{index}", reg, saying, true)
   end
+
+  match /^hey/i, use_prefix: false, strip_colors: true, method: 'hey'
+
+  def hey(m)
+    return if m.user.nick.downcase == m.bot.nick.downcase
+    if rand(10) == 1
+      m.reply "And I say hey! What a wonderful kind of day! If we could learn to work and play, and get along with each other."
+    end
+  end
 end

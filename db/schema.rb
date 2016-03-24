@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1002) do
+ActiveRecord::Schema.define(version: 1003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,10 +37,12 @@ ActiveRecord::Schema.define(version: 1002) do
     t.boolean  "parsed",     default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.date     "created_on",                 null: false
   end
 
   add_index "raw_chat_logs", ["channel"], name: "index_raw_chat_logs_on_channel", using: :btree
   add_index "raw_chat_logs", ["created_at"], name: "index_raw_chat_logs_on_created_at", using: :btree
+  add_index "raw_chat_logs", ["created_on"], name: "index_raw_chat_logs_on_created_on", using: :btree
   add_index "raw_chat_logs", ["event"], name: "index_raw_chat_logs_on_event", using: :btree
 
 end

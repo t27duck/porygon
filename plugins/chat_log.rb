@@ -42,11 +42,12 @@ class ChatLog
 
   def log_message(channel:, nick:, host:, message:, event:)
     RawChatLog.create!(
-      channel:  channel,
-      nick:     nick,
-      host:     host,
-      message:  message,
-      event:    event
+      channel:    channel,
+      nick:       nick,
+      host:       host,
+      message:    message,
+      event:      event,
+      created_on: Time.now.utc
     )
   end
 

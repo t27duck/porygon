@@ -49,4 +49,19 @@ class Sayings
       m.reply "And I say hey! What a wonderful kind of day! If we could learn to work and play, and get along with each other."
     end
   end
+  def twistedn.messages_with_prefix
+   {
+     /(mal|MAL|myanimelist|anime)$/i => "http://myanimelist.net/profile/TwistedN"
+   }
+  end
+ def twistedn_.messages_with_prefix
+   {
+     /(mal|MAL|myanimelist|anime)$/i => "http://myanimelist.net/profile/TwistedN"
+   }
+  end
+ def Metasov.messages_with_prefix
+   {
+     /(mal|MAL|myanimelist|anime)$/i => "http://myanimelist.net/profile/MetaSov"
+   }
+  end
 end

@@ -22,5 +22,6 @@
 
 config/database.yml
 coverage/*
+/vendor/bundle/*
 
 bot/config.yml

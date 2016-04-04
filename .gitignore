@@ -19,6 +19,7 @@
 .DS_STORE
 *.swap
 .ruby-version
+.session_store
 
 config/database.yml
 coverage/*

@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nick:</strong>
+  <%= @nick_whitelist.nick %>
+</p>
+
+<%= link_to 'Edit', edit_nick_whitelist_path(@nick_whitelist) %> |
+<%= link_to 'Back', nick_whitelists_path %>

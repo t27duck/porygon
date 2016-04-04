@@ -1,0 +1,36 @@
+<%= link_to new_saying_path, class: "pull-right btn btn-primary" do %>
+  <%= content_tag(:span, nil, class: "glyphicon glyphicon-plus") %>
+  Add
+<% end %>
+<h1>Sayings</h1>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Trigger</th>
+      <th>Enabled</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sayings.each do |saying| %>
+      <tr>
+        <td><%= saying.name %></td>
+        <td><%= saying.trigger_percentage %>%</td>
+        <td><%= content_tag(:span, nil, class: "glyphicon glyphicon-#{saying.enabled? ? "ok" : "remove"}") %></td>
+        <td class="text-right" nowrap>
+          <%= link_to saying, class: "btn btn-primary btn-xs" do %>
+            <%= content_tag(:span, nil, class: "glyphicon glyphicon-eye-open") %>
+          <% end %>
+          <%= link_to edit_saying_path(saying), class: "btn btn-primary btn-xs" do %>
+            <%= content_tag(:span, nil, class: "glyphicon glyphicon-pencil") %>
+          <% end %>
+          <%= link_to saying, method: :delete, class: "btn btn-danger btn-xs", data: { confirm: 'Are you sure?' } do %>
+            <%= content_tag(:span, nil, class: "glyphicon glyphicon-trash") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

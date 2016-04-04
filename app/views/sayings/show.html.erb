@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @saying.name %>
+</p>
+
+<p>
+  <strong>Pattern:</strong>
+  <%= @saying.pattern %>
+</p>
+
+<p>
+  <strong>Trigger percentage:</strong>
+  <%= @saying.trigger_percentage %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @saying.enabled %>
+</p>
+
+<p>
+  <strong>Responses:</strong>
+  <ul>
+    <% @saying.responses.each do |response| %>
+      <li><%= response.content %></li>
+    <% end %>
+  </ul>
+</p>
+
+<%= link_to edit_saying_path(@saying), class: "btn btn-primary" do %>
+  <%= content_tag(:span, nil, class: "glyphicon glyphicon-pencil") %>
+  Edit
+<% end %>
+
+<%= link_to "Back", sayings_path, class: "btn btn-warning" %>

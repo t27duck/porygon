@@ -1,0 +1,11 @@
+<div class="newfieldset form-group">
+  <div class="input-group">
+    <%= f.text_field :content, class: "form-control", required: true %>
+    <div class="input-group-addon">
+      <%= f.hidden_field :_destroy %>
+      <%= link_to "#", class: "remove-fields" do %>
+        <%= content_tag(:span, nil, class: "glyphicon glyphicon-trash") %>
+      <% end %>
+    </div>
+  </div>
+</div>

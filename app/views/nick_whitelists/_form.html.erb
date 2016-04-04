@@ -1,0 +1,22 @@
+<%= form_for(nick_whitelist) do |f| %>
+  <% if nick_whitelist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(nick_whitelist.errors.count, "error") %> prohibited this nick_whitelist from being saved:</h2>
+
+      <ul>
+      <% nick_whitelist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :nick %>
+    <%= f.text_field :nick, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

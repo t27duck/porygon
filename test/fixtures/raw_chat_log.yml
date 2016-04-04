@@ -1,0 +1,19 @@
+<% 100.times do |i| %>
+room1_<%= i %>:
+  channel: '#room1'
+  nick: 'nick'
+  event: 'message'
+  host: 'host'
+  message: 'the message'
+  created_on: 2015-03-05
+<% end %>
+
+<% 100.times do |i| %>
+room2_<%= i %>:
+  channel: '#room2'
+  nick: 'nick'
+  event: 'message'
+  host: 'host'
+  message: 'the message'
+  created_on: 2015-03-05
+<% end %>

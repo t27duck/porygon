@@ -1,0 +1,35 @@
+<%= link_to new_nick_whitelist_path, class: "pull-right btn btn-primary" do %>
+  <%= content_tag(:span, nil, class: "glyphicon glyphicon-plus") %>
+  Add
+<% end %>
+<h1>Nick Whitelists</h1>
+
+<p>These nicks, along with usernames, will be flagged to be allowed to send special commands to the bot.</p>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Nick</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @nick_whitelists.each do |nick_whitelist| %>
+      <tr>
+        <td><%= nick_whitelist.nick %></td>
+        <td class="text-right" nowrap>
+          <%= link_to nick_whitelist, class: "btn btn-primary btn-xs" do %>
+            <%= content_tag(:span, nil, class: "glyphicon glyphicon-eye-open") %>
+          <% end %>
+          <%= link_to edit_nick_whitelist_path(nick_whitelist), class: "btn btn-primary btn-xs" do %>
+            <%= content_tag(:span, nil, class: "glyphicon glyphicon-pencil") %>
+          <% end %>
+          <%= link_to nick_whitelist, method: :delete, class: "btn btn-danger btn-xs", data: { confirm: 'Are you sure?' } do %>
+            <%= content_tag(:span, nil, class: "glyphicon glyphicon-trash") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

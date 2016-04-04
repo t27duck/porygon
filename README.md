@@ -1,16 +1,24 @@
-Porygon
-=======
+## README
 
-[![Code Climate](https://codeclimate.com/github/t27duck/porygon/badges/gpa.svg)](https://codeclimate.com/github/t27duck/porygon)
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## An IRC bot used for GoNintendo and GoingSony's channels on IRCHighway.net using the [Cinch](https://github.com/cinchrb/cinch/) gem.
+Things you may want to cover:
 
-TODO: Fill out more of this readme.
+* Ruby version
 
-## Contributing
+* System dependencies
 
-1. Fork it ( http://github.com/t27duck/porygon/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

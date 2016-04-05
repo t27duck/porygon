@@ -11,6 +11,7 @@ ActiveRecord::Base.establish_connection YAML::load(dbconfig)[environment]
 
 CONFIG = YAML::load_file(ENV["PORYGON_CONFIG"] || "./bot/config.yml")
 
+Dir.glob('./bot/{initializers}/*.rb').each { |file| require file }
 Dir.glob('./bot/{plugins}/*.rb').each { |file| require file }
 
 require "./app/models/application_record.rb"

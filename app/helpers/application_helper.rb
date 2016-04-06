@@ -8,7 +8,7 @@ module ApplicationHelper
     end
     link_to name, {
       class: "add-fields btn btn-sm btn-primary #{html_class}",
-      data: { id: id, fields: fields.gsub("\n", '') }
+      data: { id: id, fields: fields.delete("\n") }
     }.merge(html_options) do
       content_tag(:span, nil, class: "glyphicon glyphicon-plus")+" Add"
     end

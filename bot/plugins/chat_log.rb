@@ -13,7 +13,7 @@ class ChatLog
     log_message(args)
   end
 
-  def process_leaving(m, user)
+  def process_leaving(m, _user)
     return unless m.channel?
     args            = build_common_log_args(m, m.user)
     args[:message]  = "left the room"

@@ -450,6 +450,6 @@ ALTER TABLE ONLY saying_responses
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('1001'), ('1002'), ('1003'), ('20160329213559'), ('20160329230046'), ('20160330000551'), ('20160402195249');
+INSERT INTO schema_migrations (version) VALUES ('1001'), ('1002'), ('1003'), ('20160329213559'), ('20160329230046'), ('20160330000551'), ('20160402195249'), ('20160408230120');
 
 

@@ -22,7 +22,7 @@ class Sayings
   end
 
   def reload_sayings(m)
-    return unless NickWhitelist.includes?(m.user.nick)
+    return unless NickWhitelist.includes?(m.user.nick.downcase)
     load_sayings
     m.reply "Sayings reloaded!"
   end

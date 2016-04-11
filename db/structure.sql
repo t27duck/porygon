@@ -46,6 +46,45 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: chat_data_points; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE chat_data_points (
+    id integer NOT NULL,
+    channel character varying NOT NULL,
+    nick character varying NOT NULL,
+    full_date date NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    hour integer DEFAULT 0 NOT NULL,
+    line_count integer DEFAULT 0 NOT NULL,
+    word_count integer DEFAULT 0 NOT NULL,
+    urls text[] DEFAULT '{}'::text[] NOT NULL,
+    random_quote text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: chat_data_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE chat_data_points_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: chat_data_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE chat_data_points_id_seq OWNED BY chat_data_points.id;
+
+
+--
 -- Name: nick_whitelists; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -265,6 +304,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY chat_data_points ALTER COLUMN id SET DEFAULT nextval('chat_data_points_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY nick_whitelists ALTER COLUMN id SET DEFAULT nextval('nick_whitelists_id_seq'::regclass);
 
 
@@ -309,6 +355,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: chat_data_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY chat_data_points
+    ADD CONSTRAINT chat_data_points_pkey PRIMARY KEY (id);
 
 
 --
@@ -357,6 +411,41 @@ ALTER TABLE ONLY sayings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_chat_data_points_on_channel; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_chat_data_points_on_channel ON chat_data_points USING btree (channel);
+
+
+--
+-- Name: index_chat_data_points_on_day; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_chat_data_points_on_day ON chat_data_points USING btree (day);
+
+
+--
+-- Name: index_chat_data_points_on_full_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_chat_data_points_on_full_date ON chat_data_points USING btree (full_date);
+
+
+--
+-- Name: index_chat_data_points_on_hour; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_chat_data_points_on_hour ON chat_data_points USING btree (hour);
+
+
+--
+-- Name: index_chat_data_points_on_nick; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_chat_data_points_on_nick ON chat_data_points USING btree (nick);
 
 
 --
@@ -450,6 +539,6 @@ ALTER TABLE ONLY saying_responses
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('1001'), ('1002'), ('1003'), ('20160329213559'), ('20160329230046'), ('20160330000551'), ('20160402195249'), ('20160408230120');
+INSERT INTO schema_migrations (version) VALUES ('1001'), ('1002'), ('1003'), ('20160329213559'), ('20160329230046'), ('20160330000551'), ('20160402195249'), ('20160408230120'), ('20160410212525');
 
 

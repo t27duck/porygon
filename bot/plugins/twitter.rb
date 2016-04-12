@@ -1,7 +1,7 @@
 class Twitter
   include Cinch::Plugin
 
-  match /twitter.com\/.+status\/(\d+)/i, use_prefix: false, strip_colors: true
+  match(/twitter.com\/.+status\/(\d+)/i, use_prefix: false, strip_colors: true)
 
   def execute(m, status_id)
     return unless CONFIG['twitter']
@@ -10,7 +10,8 @@ class Twitter
     body = JSON.parse(res.body)
     tweet_body = HTMLEntities.new.decode(body['text']).split("\n").join(' ')
     m.reply "#{body['user']['name']} (@#{body['user']['screen_name']}) - #{tweet_body}"
-  rescue
+  rescue => e
+    puts e.message
   end
 
   def access_token
@@ -34,6 +35,6 @@ class Twitter
       oauth_token: oauth_token,
       oauth_token_secret: oauth_token_secret
     }
-    access_token = OAuth::AccessToken.from_hash(consumer, token_hash)
+    OAuth::AccessToken.from_hash(consumer, token_hash)
   end
 end

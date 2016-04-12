@@ -1,8 +1,8 @@
 class Dexter
   include Cinch::Plugin
 
-  match /dexter ([\w \.-]+)/i, strip_colors: true
-  match /pokedex ([\w \.-]+)/i, strip_colors: true
+  match(/dexter ([\w \.-]+)/i, strip_colors: true)
+  match(/pokedex ([\w \.-]+)/i, strip_colors: true)
 
   def execute(m, poke_id)
     pokemon = Pokemon.lookup(poke_id.strip)

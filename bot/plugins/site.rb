@@ -6,15 +6,15 @@ class Site
     @last_story_urls ||= {}
   end
 
-  match /http:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i,
+  match(/http:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i,
     use_prefix: false,
     strip_colors: true,
-    method: :get_gonintendo_story
+    method: :get_gonintendo_story)
 
-  match /http:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i,
+  match(/http:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i,
     use_prefix: false,
     strip_colors: true,
-    method: :get_goingsony_story
+    method: :get_goingsony_story)
 
   timer (10 * 60), method: :check_sites
 

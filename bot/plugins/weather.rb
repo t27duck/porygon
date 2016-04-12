@@ -6,7 +6,7 @@ class Weather
     @cached_responses ||= {}
   end
 
-  match /weather ([\w, ]+)/i, strip_colors: true
+  match(/weather ([\w, ]+)/i, strip_colors: true)
 
   def execute(m, search_term)
     return unless CONFIG["weather"]
@@ -16,7 +16,8 @@ class Weather
     response = store_cache(make_request) if response.nil?
 
     m.reply response
-  rescue
+  rescue => e
+    puts e.message
   end
 
   private ######################################################################

@@ -7,7 +7,8 @@ class Sayings
   end
 
   listen_to :message, method: :process_message, strip_colors: true
-  match /reload\z/, method: :reload_sayings, strip_colors: true, user_prefix: true
+
+  match(/reload\z/, method: :reload_sayings, strip_colors: true, user_prefix: true)
 
   private ######################################################################
 

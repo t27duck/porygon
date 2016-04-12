@@ -4,6 +4,9 @@ class RawChatLog < ApplicationRecord
     :event, :created_on, presence: true
   before_save :downcase_nick
 
+  scope :unparsed, -> { where(parsed: false) }
+  scope :messages, -> { where(event: :message) }
+
   private ######################################################################
 
   def downcase_nick

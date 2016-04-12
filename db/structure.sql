@@ -58,7 +58,6 @@ CREATE TABLE chat_data_points (
     hour integer DEFAULT 0 NOT NULL,
     line_count integer DEFAULT 0 NOT NULL,
     word_count integer DEFAULT 0 NOT NULL,
-    urls text[] DEFAULT '{}'::text[] NOT NULL,
     random_quote text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

@@ -8,8 +8,6 @@ one:
   hour: 1
   line_count: 1
   word_count: 1
-  urls:
-    - MyText
   random_quote: MyText
 
 two:
@@ -20,6 +18,4 @@ two:
   hour: 1
   line_count: 1
   word_count: 1
-  urls:
-    - MyText
   random_quote: MyText

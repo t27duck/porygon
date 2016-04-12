@@ -8,7 +8,6 @@ class CreateChatDataPoints < ActiveRecord::Migration[5.0]
       t.integer :hour, null: false, default: 0
       t.integer :line_count, null: false, default: 0
       t.integer :word_count, null: false, default: 0
-      t.text :urls, null: false, default: [], array: true
       t.text :random_quote
 
       t.timestamps

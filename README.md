@@ -1,24 +1,16 @@
-## README
+## Porygon
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Porygon is an IRC bot and Rails app providing services to #GoNintendo and #GoingSony on IrcHighway.net
 
-Things you may want to cover:
+Features included:
 
-* Ruby version
+* Sayings by regex with percentage for triggering
 
-* System dependencies
+* Weather via Weather Underground's API
 
-* Configuration
+* Basic room logging
 
-* Database creation
+* Pokedex information
 
-* Database initialization
+* Story URL parsing and top story notification for GoNintendo and GoingSony
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

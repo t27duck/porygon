@@ -1,0 +1,12 @@
+<div class="row">
+  <% @channels.each do |channel| %>
+    <div class="col-md-6">
+      <h3><%= channel %></h3>
+      <ul>
+        <% RawChatLog.order(created_on: :desc).pluck('DISTINCT created_on').each do |date| %>
+          <li><%= link_to date, chatlog_show_path(channel: channel.gsub('#', ''), date: date.strftime('%Y%m%d')) %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

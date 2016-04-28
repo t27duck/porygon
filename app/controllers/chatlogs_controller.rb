@@ -3,6 +3,7 @@ class ChatlogsController < ApplicationController
   before_action :check_params, only: :show
 
   def index
+    @channels = RawChatLog.pluck('DISTINCT channel')
   end
 
   def show

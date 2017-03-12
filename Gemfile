@@ -9,7 +9,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test, :production do
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  gem 'rails', '5.0.1'
+  gem 'rails', '5.0.2'
   # Use Puma as the app server
   gem 'puma'
   gem 'sass-rails', '~> 5.0'
@@ -18,7 +18,7 @@ group :development, :test, :production do
   gem 'coffee-rails', '~> 4.1.0'
   gem 'jquery-rails'
   gem 'devise', '~> 4.0.3'
-  gem 'kaminari', git: 'git://github.com/amatsuda/kaminari.git', branch: 'master'
+  gem 'kaminari'
   # See https://github.com/rails/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
 end

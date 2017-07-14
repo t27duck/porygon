@@ -6,12 +6,12 @@ class Site
     @last_story_urls ||= {}
   end
 
-  match(/https?:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i,
+  match(/https{0,1}:\/\/w{0,3}\.?gonintendo\.com\/stories\/([a-z\-0-9]+)/i,
     use_prefix: false,
     strip_colors: true,
     method: :get_gonintendo_story)
 
-  match(/https?:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i,
+  match(/https{0,1}:\/\/w{0,3}\.?goingsony\.com\/stories\/([a-z\-0-9]+)/i,
     use_prefix: false,
     strip_colors: true,
     method: :get_goingsony_story)

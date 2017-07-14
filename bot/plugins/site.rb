@@ -93,8 +93,11 @@ class Site
 
   def make_request(url)
     url = URI.parse(url)
-    req = Net::HTTP::Get.new(url.request_uri)
-    res = Net::HTTP.start(url.host, url.port) {|http| http.request(req) }
+
+    req = Net::HTTP.new(url.host, url.port)
+    req.use_ssl = true
+    res = req.get(url.request_uri)
+
     return nil unless res.code == '200'
     JSON.parse(res.body)
   rescue

@@ -43,7 +43,7 @@ class Youtube
     dislike = video.dislike_count
     rating = ((like.to_f/(like+dislike)) * 100).round(2)
 
-    output = "YouTube - #{title} (#{length}) ‹#{length}› - Rating: #{rating}%"
+    output = "YouTube - #{title} (#{length}) ‹#{channel}› - Rating: #{rating}%"
     output += " [+#{number_to_delimited(like)}, -#{number_to_delimited(dislike)}]"
 
     return output

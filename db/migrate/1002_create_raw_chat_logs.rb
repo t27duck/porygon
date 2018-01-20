@@ -1,4 +1,4 @@
-class CreateRawChatLogs < ActiveRecord::Migration
+class CreateRawChatLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :raw_chat_logs do |t|
       t.string :channel,  null: false

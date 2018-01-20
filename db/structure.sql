@@ -1,12 +1,6 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.0
--- Dumped by pg_dump version 9.5.0
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -300,56 +294,56 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: chat_data_points id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chat_data_points ALTER COLUMN id SET DEFAULT nextval('chat_data_points_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: nick_whitelists id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY nick_whitelists ALTER COLUMN id SET DEFAULT nextval('nick_whitelists_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pokemons id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pokemons ALTER COLUMN id SET DEFAULT nextval('pokemons_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: raw_chat_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY raw_chat_logs ALTER COLUMN id SET DEFAULT nextval('raw_chat_logs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: saying_responses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY saying_responses ALTER COLUMN id SET DEFAULT nextval('saying_responses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: sayings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sayings ALTER COLUMN id SET DEFAULT nextval('sayings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -357,7 +351,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: chat_data_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: chat_data_points chat_data_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chat_data_points
@@ -365,7 +359,7 @@ ALTER TABLE ONLY chat_data_points
 
 
 --
--- Name: nick_whitelists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: nick_whitelists nick_whitelists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY nick_whitelists
@@ -373,7 +367,7 @@ ALTER TABLE ONLY nick_whitelists
 
 
 --
--- Name: pokemons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pokemons pokemons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pokemons
@@ -381,7 +375,7 @@ ALTER TABLE ONLY pokemons
 
 
 --
--- Name: raw_chat_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: raw_chat_logs raw_chat_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY raw_chat_logs
@@ -389,7 +383,7 @@ ALTER TABLE ONLY raw_chat_logs
 
 
 --
--- Name: saying_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: saying_responses saying_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY saying_responses
@@ -397,7 +391,7 @@ ALTER TABLE ONLY saying_responses
 
 
 --
--- Name: sayings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sayings sayings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sayings
@@ -405,7 +399,15 @@ ALTER TABLE ONLY sayings
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -518,14 +520,7 @@ CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: fk_rails_5fd42566f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: saying_responses fk_rails_5fd42566f6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY saying_responses
@@ -538,6 +533,15 @@ ALTER TABLE ONLY saying_responses
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('1001'), ('1002'), ('1003'), ('20160329213559'), ('20160329230046'), ('20160330000551'), ('20160402195249'), ('20160408230120'), ('20160410212525');
+INSERT INTO "schema_migrations" (version) VALUES
+('1001'),
+('1002'),
+('1003'),
+('20160329213559'),
+('20160329230046'),
+('20160330000551'),
+('20160402195249'),
+('20160408230120'),
+('20160410212525');
 
 

@@ -1,4 +1,4 @@
-class AddCreatedOnToRawChatLogs < ActiveRecord::Migration
+class AddCreatedOnToRawChatLogs < ActiveRecord::Migration[4.2]
   def up
     add_column :raw_chat_logs, :created_on, :date
     RawChatLog.find_each do |l|

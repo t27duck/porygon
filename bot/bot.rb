@@ -23,6 +23,7 @@ require "./app/models/saying_response.rb"
 
 plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Weather]
 plugin_list << Cinch::Plugins::Identify if CONFIG["irc"]["nickserv_password"]
+plugin_list << Youtube if CONFIG["youtube"]
 
 bot = Cinch::Bot.new do
   configure do |c|

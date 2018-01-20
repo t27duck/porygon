@@ -14,3 +14,4 @@ Features included:
 
 * Story URL parsing and top story notification for GoNintendo and GoingSony
 
+* Youtube.com video URL information

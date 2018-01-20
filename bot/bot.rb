@@ -20,8 +20,9 @@ require "./app/models/pokemon.rb"
 require "./app/models/raw_chat_log.rb"
 require "./app/models/saying.rb"
 require "./app/models/saying_response.rb"
+require "./app/models/seen_activity.rb"
 
-plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Weather]
+plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Weather, Seen]
 plugin_list << Cinch::Plugins::Identify if CONFIG["irc"]["nickserv_password"]
 plugin_list << Youtube if CONFIG["youtube"]
 

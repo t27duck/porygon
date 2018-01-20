@@ -48,6 +48,7 @@ group :bot do
   gem 'json'
   gem 'activerecord', require: 'active_record'
   gem 'activesupport', require: 'active_support'
+  gem 'actionview', require: 'action_view'
   gem 'oauth', '~> 0.4.7'
   gem 'htmlentities'
   gem 'wunderground'

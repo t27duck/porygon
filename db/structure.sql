@@ -256,6 +256,39 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: seen_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE seen_activities (
+    id bigint NOT NULL,
+    channel character varying NOT NULL,
+    nick character varying NOT NULL,
+    message text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: seen_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE seen_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: seen_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE seen_activities_id_seq OWNED BY seen_activities.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -336,6 +369,13 @@ ALTER TABLE ONLY sayings ALTER COLUMN id SET DEFAULT nextval('sayings_id_seq'::r
 
 
 --
+-- Name: seen_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY seen_activities ALTER COLUMN id SET DEFAULT nextval('seen_activities_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -404,6 +444,14 @@ ALTER TABLE ONLY sayings
 
 ALTER TABLE ONLY schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: seen_activities seen_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY seen_activities
+    ADD CONSTRAINT seen_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -513,6 +561,13 @@ CREATE UNIQUE INDEX index_sayings_on_pattern ON sayings USING btree (pattern);
 
 
 --
+-- Name: index_seen_activities_on_channel_and_nick; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_seen_activities_on_channel_and_nick ON seen_activities USING btree (channel, nick);
+
+
+--
 -- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -542,6 +597,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20160330000551'),
 ('20160402195249'),
 ('20160408230120'),
-('20160410212525');
+('20160410212525'),
+('20180120190617');
 
 

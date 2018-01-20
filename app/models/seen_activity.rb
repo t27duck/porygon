@@ -1,0 +1,2 @@
+class SeenActivity < ApplicationRecord
+end

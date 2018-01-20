@@ -8,11 +8,6 @@ class User < ApplicationRecord
     false
   end
 
-  def email_changed?
-    false
-  end
-
-  def will_save_change_to_email?
-    false
-  end
+  alias_method :email_changed?, :email_required?
+  alias_method :will_save_change_to_email?, :email_required?
 end

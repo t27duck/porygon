@@ -1,4 +1,4 @@
-class Math
+class MathPlugin
   include Cinch::Plugin
 
   match(/\Amath ([\(\)\d\+\-*^% \/\.]+)\z/, strip_colors: true)

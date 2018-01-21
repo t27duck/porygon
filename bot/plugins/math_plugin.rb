@@ -1,7 +1,7 @@
 class MathPlugin
   include Cinch::Plugin
 
-  match(/\Amath ([\(\)\d\+\-*^% \/\.]+)\z/, strip_colors: true)
+  match(/math ([\(\)\d\+\-*^% \/\.]+)\z/, strip_colors: true, user_prefix: true)
 
   def execute(m, math)
     return if math.size > 50

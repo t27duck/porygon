@@ -48,8 +48,8 @@ class Currency
 
   def calculate_exchange_rate(source_currency, target_currency)
     rates = get_rates
-    raise UnknownCurrency, target_currency if rates[target_currency].nil?
     raise UnknownCurrency, source_currency if rates[source_currency].nil?
+    raise UnknownCurrency, target_currency if rates[target_currency].nil?
 
     return rates[target_currency].to_d if source_currency == BASE_CURRENCY
     return rate = 1.to_d if source_currency == target_currency

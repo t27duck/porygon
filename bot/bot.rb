@@ -22,7 +22,7 @@ require "./app/models/saying.rb"
 require "./app/models/saying_response.rb"
 require "./app/models/seen_activity.rb"
 
-plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Weather, Seen, MathPlugin, Currency]
+plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Weather, Seen, MathPlugin, Currency, BasicCTCP]
 plugin_list << Cinch::Plugins::Identify if CONFIG["irc"]["nickserv_password"]
 plugin_list << Youtube if CONFIG["youtube"]
 
@@ -37,6 +37,12 @@ bot = Cinch::Bot.new do
       c.plugins.options[Cinch::Plugins::Identify] = {
         password: CONFIG["irc"]["nickserv_password"],
         type:     :nickserv
+      }
+    end
+
+    if plugin_list.include?(BasicCTCP)
+      c.plugins.options[BasicCTCP][:replies] = {
+        version: "Porygon v1.0 powered by Cinch v#{Cinch::VERSION}"
       }
     end
   end

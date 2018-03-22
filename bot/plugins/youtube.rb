@@ -11,8 +11,8 @@ class Youtube
     end
   end
 
-  match(/https?\:\/\/w{0,3}\.?youtube.com\/watch\?(.+)/i, strip_colors: true, use_prefix: false, method: :standard_url)
-  match(/https?\:\/\/w{0,3}\.?youtu.be\/(.+)/i, strip_colors: true, use_prefix: false, method: :short_url)
+  match(/https?\:\/\/w{0,3}\.?youtube.com\/watch\?([\w-]+)/i, strip_colors: true, use_prefix: false, method: :standard_url)
+  match(/https?\:\/\/w{0,3}\.?youtu.be\/([\w-]+)/i, strip_colors: true, use_prefix: false, method: :short_url)
 
   def standard_url(m, var_string)
     return unless CONFIG['youtube']

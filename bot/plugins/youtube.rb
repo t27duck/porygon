@@ -1,5 +1,4 @@
 require 'yt'
-require 'cgi'
 
 class Youtube
   include Cinch::Plugin
@@ -11,15 +10,11 @@ class Youtube
     end
   end
 
-  match(/https?\:\/\/w{0,3}\.?youtube.com\/watch\?([\w-]+)/i, strip_colors: true, use_prefix: false, method: :standard_url)
+  match(/https?\:\/\/w{0,3}\.?youtube.com\/watch\?v=([\w-]+)/i, strip_colors: true, use_prefix: false, method: :standard_url)
   match(/https?\:\/\/w{0,3}\.?youtu.be\/([\w-]+)/i, strip_colors: true, use_prefix: false, method: :short_url)
 
-  def standard_url(m, var_string)
+  def standard_url(m, id)
     return unless CONFIG['youtube']
-    vars = CGI::parse(var_string)
-    return unless vars['v']
-
-    id = vars['v'][0]
     m.reply fetch(id)
   rescue => e
     puts e.message

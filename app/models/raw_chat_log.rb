@@ -1,5 +1,5 @@
 class RawChatLog < ApplicationRecord
-  enum event: [ :message, :action, :join, :part ]
+  enum event: [ :message, :action, :joined, :part ]
   validates :channel, :nick, :host, :message,
     :event, :created_on, presence: true
   before_save :downcase_nick

@@ -2,7 +2,7 @@ class ChatlogsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @channels = RawChatLog.pluck('DISTINCT channel')
+    @channels = RawChatLog.pluck(Arel.sql('DISTINCT channel'))
   end
 
   def show

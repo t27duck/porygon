@@ -25,7 +25,7 @@ class ChatLog
     return unless m.channel?
     args            = build_common_log_args(m, m.user)
     args[:message]  = "joined the room"
-    args[:event]    = :join
+    args[:event]    = :joined
     log_message(args)
   end
 

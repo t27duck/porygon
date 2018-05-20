@@ -9,7 +9,9 @@ class Pokemon < ApplicationRecord
     [].tap do |part|
       part << "[#{national_dex}]"
       part << "(#{types.join(', ')})"
-      part << "#{name.titlecase}: The #{species} Pokémon."
+      species_string = "The #{species}"
+      species_string += " Pokemon" unless species.include?("Pokémon")
+      part << "#{name.titlecase}: The #{species_string}."
       part << descriptions.sample
     end.join(' ')
   end

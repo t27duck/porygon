@@ -12,7 +12,7 @@ gem 'pg', '~> 0.19.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test, :production do
-  gem 'rails', '5.2.0.rc2'
+  gem 'rails', '5.2.0'
   gem 'puma'
   gem 'sass-rails', '~> 5.0'
   gem 'bootstrap-sass', '~> 3.3.7'

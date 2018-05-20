@@ -11,7 +11,7 @@ class Pokemon < ApplicationRecord
       part << "(#{types.join(', ')})"
       species_string = "The #{species}"
       species_string += " Pokemon" unless species.include?("Pokémon")
-      part << "#{name.titlecase}: The #{species_string}."
+      part << "#{name.titlecase}: #{species_string}."
       part << descriptions.sample
     end.join(' ')
   end

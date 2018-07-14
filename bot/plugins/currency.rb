@@ -7,8 +7,6 @@ class Currency
 
   UnknownCurrency = Class.new(StandardError)
 
-  BASE_CURRENCY = "USD".freeze
-
   def initialize(*args)
     super
     @rates ||= { pulled: nil, rates: {}}
@@ -17,6 +15,7 @@ class Currency
   match(/currency ([\d\.]+) ([A-Z]+) to ([A-Z]+)\z/i, use_prefix: true, strip_colors: true)
 
   def execute(m, value, source_currency, target_currency)
+    return unless CONFIG["fixer"]
     source_currency.upcase!
     target_currency.upcase!
 
@@ -33,17 +32,23 @@ class Currency
 
   def get_rates
     return @rates[:rates] if !@rates[:rates].empty? && Time.now.to_i - @rates[:pulled].to_i <= 60 * 60 * 8
+    url = URI.parse(api_url)
 
-    url = URI.parse("https://api.fixer.io/latest?base=#{BASE_CURRENCY}")
     req = Net::HTTP.new(url.host, url.port)
-    req.use_ssl = true
+    req.use_ssl = CONFIG["fixer"]["use_ssl"]
     res = req.get(url.request_uri)
 
     @rates[:pulled] = Time.now
     @rates[:rates] = JSON.parse(res.body)["rates"]
-    @rates[:rates][BASE_CURRENCY] = 1
 
     @rates[:rates]
+  end
+
+  def api_url
+    @api_url ||= "#{CONFIG["fixer"]["use_ssl"] ? "https://" : "http://"}" +
+      "data.fixer.io/api/latest?format=1" +
+      "&access_key=#{CONFIG["fixer"]["api_key"]}" +
+      "&base=#{CONFIG["fixer"]["base_currency"]}"
   end
 
   def calculate_exchange_rate(source_currency, target_currency)
@@ -51,7 +56,7 @@ class Currency
     raise UnknownCurrency, source_currency if rates[source_currency].nil?
     raise UnknownCurrency, target_currency if rates[target_currency].nil?
 
-    return rates[target_currency].to_d if source_currency == BASE_CURRENCY
+    return rates[target_currency].to_d if source_currency == CONFIG["fixer"]["base_currency"]
     return rate = 1.to_d if source_currency == target_currency
     (1.to_d / rates[source_currency].to_d) * rates[target_currency].to_d
   end

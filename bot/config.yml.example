@@ -6,13 +6,18 @@ irc:
 
 porygon_key: ""
 
-#twitter:
-#  oauth_token: ""
-#  oauth_token_secret: ""
-#  consumer_key: ""
-#  consumer_secret: ""
+# twitter:
+#   oauth_token: ""
+#   oauth_token_secret: ""
+#   consumer_key: ""
+#   consumer_secret: ""
 
-#weather:
-#  api_key: ""
+# weather:
+#   api_key: ""
 
 # youtube: ""
+
+# fixer:
+#   api_key: ""
+#   base_currency: "EUR"
+#   use_ssl: false

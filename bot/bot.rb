@@ -22,7 +22,7 @@ require "./app/models/saying.rb"
 require "./app/models/saying_response.rb"
 require "./app/models/seen_activity.rb"
 
-plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Weather, Seen, MathPlugin, Currency, BasicCTCP]
+plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Seen, MathPlugin, Currency, BasicCTCP]
 plugin_list << Cinch::Plugins::Identify if CONFIG["irc"]["nickserv_password"]
 plugin_list << Youtube if CONFIG["youtube"]
 

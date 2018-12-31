@@ -50,6 +50,6 @@ group :bot do
   gem 'actionview', require: 'action_view'
   gem 'oauth', '~> 0.4.7'
   gem 'htmlentities'
-  gem 'wunderground'
+  gem 'rest-client' # Needed for weather API
   gem 'yt'
 end

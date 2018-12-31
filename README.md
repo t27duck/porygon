@@ -6,7 +6,7 @@ Features included:
 
 * Sayings by regex with percentage for triggering
 
-* Weather via Weather Underground's API
+* Weather via Weather APIXU API
 
 * Basic room logging
 

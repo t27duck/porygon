@@ -3,6 +3,7 @@ environment = ENV["BOT_ENV"] || "development"
 require "bundler/setup"
 require "yaml"
 require "erb"
+require "json"
 
 Bundler.require(:default, :bot)
 
@@ -25,6 +26,7 @@ require "./app/models/seen_activity.rb"
 plugin_list = [Sayings, Twitter, Dexter, ChatLog, Site, Seen, MathPlugin, Currency, BasicCTCP]
 plugin_list << Cinch::Plugins::Identify if CONFIG["irc"]["nickserv_password"]
 plugin_list << Youtube if CONFIG["youtube"]
+plugin_list << Weather if CONFIG["weather"]
 
 bot = Cinch::Bot.new do
   configure do |c|
